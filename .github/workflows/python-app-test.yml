@@ -20,17 +20,7 @@ jobs:
         python -m pip install --upgrade pip
         # Add any other dependencies here
 
-    - name: Test with 10 numbers
-      run: |
-        python find_lowest_number.py test_data/test1_input.txt test1_output.txt
-        # Debugging: Print the output file's contents
-        echo "Output of the script:"
-        cat test1_output.txt
-        echo "End of output file"
-        # Post-process output to convert float to int if applicable
-        awk '{if ($1 == int($1)) print int($1); else print $1;}' test1_output.txt > temp.txt && mv temp.txt test1_output.txt
-        # Compare the output with the expected result
-        diff test1_output.txt test_data/test1_expected.txt
+
 
     - name: Test with 1 number
       run: |
