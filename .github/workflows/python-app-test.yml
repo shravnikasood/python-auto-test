@@ -1,4 +1,3 @@
-
 name: Python Application Test
 
 on: [push]
@@ -24,20 +23,33 @@ jobs:
     - name: Test with 10 numbers
       run: |
         python find_lowest_number.py test_data/test1_input.txt test1_output.txt
-        # Output the result for manual verification
+        # Debugging: Print the output file's contents
+        echo "Output of the script:"
         cat test1_output.txt
-        # If the workflow should fail if the output is not as expected, you would add that check here
+        echo "End of output file"
+        # Post-process output to convert float to int if applicable
+        awk '{if ($1 == int($1)) print int($1); else print $1;}' test1_output.txt > temp.txt && mv temp.txt test1_output.txt
+        # Compare the output with the expected result
+        diff test1_output.txt test_data/test1_expected.txt
 
     - name: Test with 1 number
       run: |
         python find_lowest_number.py test_data/test2_input.txt test2_output.txt
-        # Output the result for manual verification
+        # Debugging: Print the output file's contents
+        echo "Output of the script:"
         cat test2_output.txt
-        # If the workflow should fail if the output is not as expected, you would add that check here
+        echo "End of output file"
+        # Post-process output to convert float to int if applicable
+        awk '{if ($1 == int($1)) print int($1); else print $1;}' test2_output.txt > temp.txt && mv temp.txt test2_output.txt
+        # Compare the output with the expected result
+        diff test2_output.txt test_data/test2_expected.txt
 
     - name: Test blank file
       run: |
         python find_lowest_number.py test_data/test3_input.txt test3_output.txt
-        # Output the result for manual verification
+        # Debugging: Print the output file's contents
+        echo "Output of the script:"
         cat test3_output.txt
-        # If the workflow should fail if the output is not as expected, you would add that check here
+        echo "End of output file"
+        # Compare the output with the expected result
+        diff test3_output.txt test_data/test3_expected.txt
